@@ -1,7 +1,6 @@
 module Main exposing (..)
 
 import Html exposing (..)
-import Html.Events exposing (..)
 import Keyboard
 import Time exposing (..)
 import Element exposing (..)
@@ -13,10 +12,12 @@ import Random exposing (..)
 import Tuple
 
 
+segmentDim : Float
 segmentDim =
     15
 
 
+foodRadius : Float
 foodRadius =
     7.5
 
@@ -25,6 +26,7 @@ foodRadius =
     ( 600, 600 )
 
 
+main : Program Never Model Msg
 main =
     Html.program
         { init = init
@@ -84,6 +86,7 @@ type Msg
     | Spawn ( Float, Position )
 
 
+randPos : Generator ( Float, Float )
 randPos =
     Random.pair (Random.float 0 1) (Random.float 0 1)
 
@@ -105,7 +108,7 @@ initSnake =
 
         tail =
             List.range 1 8
-                |> List.map (\n -> pos (toFloat (-n * segmentDim)) 0)
+                |> List.map (\n -> pos ((toFloat (-n) * segmentDim)) 0)
     in
         { head = head, tail = tail, direction = Right }
 
